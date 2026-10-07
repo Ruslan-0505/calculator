@@ -3,29 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Калькулятор Рассрочки</title>
+    <title>Tayyib Finance | Исламская рассрочка</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { background-color: #0b0b0b; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .calc-card { background: #161616; width: 100%; max-width: 400px; border-radius: 20px; padding: 25px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        body { background-color: #0d1117; color: #ffffff; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .calc-card { background: #161b22; width: 100%; max-width: 400px; border-radius: 24px; padding: 30px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); border: 1px solid #21262d; }
+        .brand-header { text-align: center; margin-bottom: 25px; }
+        .brand-title { font-size: 24px; font-weight: 800; color: #c69b55; letter-spacing: 1px; text-transform: uppercase; }
+        .brand-subtitle { font-size: 12px; color: #8b949e; margin-top: 4px; text-transform: uppercase; letter-spacing: 2px; }
         .input-group { margin-bottom: 20px; }
-        label { display: block; font-size: 14px; color: #aeaeae; margin-bottom: 8px; }
+        label { display: block; font-size: 13px; color: #8b949e; margin-bottom: 8px; font-weight: 500; }
         .input-wrapper { position: relative; display: flex; align-items: center; }
-        input[type="number"] { width: 100%; background: #222; border: 1px solid #333; padding: 12px; border-radius: 10px; color: #fff; font-size: 16px; font-weight: bold; }
-        .currency { position: absolute; right: 15px; color: #aeaeae; font-size: 16px; }
-        input[type="range"] { width: 100%; margin-top: 10px; accent-color: #e53935; }
-        .range-limits { display: flex; justify-content: space-between; font-size: 11px; color: #666; margin-top: 4px; }
-        .divider { border-top: 1px solid #222; margin: 20px 0; }
-        .result-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .result-label { font-size: 14px; color: #aeaeae; }
-        .result-value { font-size: 18px; font-weight: bold; }
-        .main-total { flex-direction: column; align-items: flex-start; margin-bottom: 20px; }
-        .main-total .result-value { font-size: 32px; color: #ffffff; margin-top: 5px; }
+        input[type="number"] { width: 100%; background: #0d1117; border: 1px solid #30363d; padding: 14px; border-radius: 12px; color: #fff; font-size: 18px; font-weight: bold; transition: border 0.2s; }
+        input[type="number"]:focus { border-color: #c69b55; outline: none; }
+        .currency { position: absolute; right: 15px; color: #8b949e; font-size: 16px; font-weight: 600; }
+        input[type="range"] { width: 100%; margin-top: 12px; accent-color: #2ea043; }
+        .range-limits { display: flex; justify-content: space-between; font-size: 11px; color: #484f58; margin-top: 5px; }
+        .divider { border-top: 1px solid #21262d; margin: 25px 0; }
+        .result-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+        .result-label { font-size: 14px; color: #8b949e; }
+        .result-value { font-size: 18px; font-weight: 700; color: #f0f6fc; }
+        .main-total { flex-direction: column; align-items: flex-start; margin-bottom: 25px; background: #0d1117; padding: 15px; border-radius: 14px; border: 1px solid #21262d; }
+        .main-total .result-label { font-size: 13px; color: #8b949e; }
+        .main-total .result-value { font-size: 34px; color: #2ea043; margin-top: 5px; font-weight: 800; }
     </style>
 </head>
 <body>
 
 <div class="calc-card">
+    <div class="brand-header">
+        <div class="brand-title">Tayyib Finance</div>
+        <div class="brand-subtitle">Дозволенная рассрочка</div>
+    </div>
+
+    <!-- Стоимость товара -->
     <div class="input-group">
         <label>Стоимость товара</label>
         <div class="input-wrapper">
@@ -36,6 +47,7 @@
         <div class="range-limits"><span>5 000 ₽</span><span>500 000 ₽</span></div>
     </div>
 
+    <!-- Первый взнос -->
     <div class="input-group">
         <label>Первый взнос</label>
         <div class="input-wrapper">
@@ -46,6 +58,7 @@
         <div class="range-limits"><span>0 ₽</span><span id="maxFirstPayLabel">100 000 ₽</span></div>
     </div>
 
+    <!-- Срок договора -->
     <div class="input-group">
         <label>Срок рассрочки</label>
         <div class="input-wrapper">
@@ -58,18 +71,21 @@
 
     <div class="divider"></div>
 
+    <!-- Ежемесячный платёж -->
     <div class="result-row main-total">
         <span class="result-label">Ежемесячный платёж</span>
         <span class="result-value" id="monthlyPaymentDisplay">0 ₽</span>
     </div>
 
+    <!-- Наценка -->
     <div class="result-row">
-        <span class="result-label">Накидка (5% в мес.)</span>
+        <span class="result-label">Накидка Мурабаха</span>
         <span class="result-value" id="markupDisplay">0 ₽</span>
     </div>
 
+    <!-- Общая стоимость -->
     <div class="result-row">
-        <span class="result-label">Общая стоимость товара</span>
+        <span class="result-label">Итоговая цена товара</span>
         <span class="result-value" id="finalCostDisplay">0 ₽</span>
     </div>
 </div>
@@ -79,6 +95,9 @@ function syncSlider(id) {
     document.getElementById(id).value = document.getElementById(id + 'Slider').value;
     calculate();
 }
+
+// Зашитая ставка фонда - 5% в месяц
+const monthlyRate = 0.05;
 
 function calculate() {
     let totalCost = parseFloat(document.getElementById('totalCost').value) || 0;
@@ -94,7 +113,6 @@ function calculate() {
     document.getElementById('monthsSlider').value = months;
 
     let debt = totalCost - firstPay; 
-    let monthlyRate = 0.05; 
     
     let markup = debt * monthlyRate * months; 
     let finalCost = totalCost + markup; 
