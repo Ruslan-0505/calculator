@@ -173,6 +173,7 @@ function calculateAll() {
 
     let debt = totalCost - firstPay;
 
+    // Расчет для КЛИЕНТА (жестко 5% в месяц, без упоминания)
     let clientRate = 0.05;
     let clientMarkup = debt * clientRate * months;
     let clientFinalCost = totalCost + clientMarkup;
@@ -182,4 +183,4 @@ function calculateAll() {
     document.getElementById('clientMarkupDisplay').innerText = Math.round(clientMarkup).toLocaleString() + ' ₽';
     document.getElementById('clientFinalCostDisplay').innerText = Math.round(clientFinalCost).toLocaleString() + ' ₽';
 
-    let adminPercent = parseFloat(document.getElementById('adminPercent').value) || 0;
+    // Расчет для АДМИНА
